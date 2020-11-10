@@ -6,7 +6,8 @@
 
 
 class Player
-  attr_accessor :name, :lives, :turn, :orig_lives
+  attr_accessor :lives
+  attr_reader :name, :orig_lives
 
   def initialize(name, orig_lives)
     @name = name
