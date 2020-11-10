@@ -40,7 +40,7 @@ class Game
     current_player = players_turn_tracker.next
 
     if current_player.lives == 0
-      next_alive_player(players_turn)
+      next_alive_player(players_turn_tracker)
 
     else
       current_player
@@ -59,7 +59,7 @@ class Game
     end
   end
 
-  def start_game
+  def run_game
     players_turn_tracker = players.cycle
    
     winner = false
@@ -67,23 +67,25 @@ class Game
       current_player = next_alive_player(players_turn_tracker)
 
       ask_question(current_player)
-
+      
       print_status
+      
+      turn_message = '------ NEXT TURN -------'
 
       if current_player.lives == 0 
         puts "Sorry #{current_player.name}! You're out!"
-
+        
         winner = get_winner(players)
         if winner
-          puts "Congrats #{winner.name}, you win!"
-          puts '------ GAME OVER -------'
+          puts "Congrats #{winner.name}, you win with a score of #{winner.lives}/#{winner.orig_lives}"
+          turn_message = '------ GAME OVER -------'
           winner = true
         end
+        
+      end 
 
-      else 
-        puts '------ NEXT TURN -------'
-      end  
-
+      puts ''
+      puts turn_message
 
     end
   end
